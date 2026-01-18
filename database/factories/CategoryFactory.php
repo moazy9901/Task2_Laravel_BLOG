@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Category>
@@ -16,8 +17,15 @@ class CategoryFactory extends Factory
      */
     public function definition(): array
     {
+        $name = $this->faker->unique()->words(2, true);
+
         return [
-            //
+            'name' => ucfirst($name),
+            'slug' => Str::slug($name),
+            'image' => null, // يمكنك وضع صورة وهمية لاحقًا
+            'meta_title' => ucfirst($name) . ' | Website',
+            'meta_description' => $this->faker->sentence(12),
+            'meta_keywords' => implode(',', $this->faker->words(5)),
         ];
     }
 }
