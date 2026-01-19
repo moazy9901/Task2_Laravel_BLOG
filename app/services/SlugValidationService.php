@@ -16,7 +16,7 @@ class SlugValidationService
         if (!preg_match('/^[a-zA-Z]+[a-zA-Z0-9\-_]*$/', $slug)) {
             return response()->json([
                 'valid' => false,
-                'message' => 'Slug format is invalid. It must start with a letter and contain only letters, numbers, hyphens, or underscores.'
+                'message' => __('site.invalid_format')
             ]);
         }
 
@@ -28,14 +28,14 @@ class SlugValidationService
         if ($exists) {
             return response()->json([
                 'valid' => false,
-                'message' => 'Slug is already taken!'
+                'message' => __('site.taken')
             ]);
         }
 
         // 3 Valid slug
         return response()->json([
             'valid' => true,
-            'message' => 'Slug is available.'
+            'message' => __('site.available')
         ]);
     }
 }

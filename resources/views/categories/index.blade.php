@@ -6,11 +6,11 @@
 
         <!-- Page Header -->
         <div class="flex items-center justify-between mb-8">
-            <h1 class="text-3xl font-bold text-gray-800">categories</h1>
+            <h1 class="text-3xl font-bold text-gray-800">{{ __('site.categories') }}</h1>
 
             <a href="{{ route('categories.create') }}"
                 class="inline-flex items-center px-5 py-2.5 rounded-xl bg-indigo-600 text-white font-medium hover:bg-indigo-700 transition">
-                + New catogory
+                + {{ __('site.new catogory') }}
             </a>
         </div>
 
@@ -44,13 +44,13 @@
 
                             <a href="{{ route('categories.show', $catogory) }}"
                                 class="text-indigo-600 font-medium hover:underline">
-                                Read More →
+                                {{ __('site.Read More') }} 
                             </a>
 
                             <div class="flex space-x-2">
                                 <a href="{{ route('categories.edit', $catogory) }}"
                                     class="px-3 py-1.5 rounded-lg text-sm bg-yellow-100 text-yellow-700 hover:bg-yellow-200">
-                                    Edit
+                                    {{ __('site.Edit') }}
                                 </a>
 
                                 <form action="{{ route('categories.destroy', $catogory) }}" method="POST"
@@ -58,7 +58,7 @@
                                     @csrf
                                     @method('DELETE')
                                     <button class="px-3 py-1.5 rounded-lg text-sm bg-red-100 text-red-600 hover:bg-red-200">
-                                        Delete
+                                        {{ __('site.Delete') }}
                                     </button>
                                 </form>
                             </div>
@@ -69,7 +69,7 @@
                 </div>
             @empty
                 <div class="col-span-full text-center py-20">
-                    <p class="text-gray-500 text-lg">No categories found.</p>
+                    <p class="text-gray-500 text-lg">{{ __('site.no categories') }}</p>
                 </div>
             @endforelse
 

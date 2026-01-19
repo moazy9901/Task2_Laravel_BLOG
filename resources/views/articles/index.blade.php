@@ -6,11 +6,11 @@
 
         <!-- Page Header -->
         <div class="flex items-center justify-between mb-8">
-            <h1 class="text-3xl font-bold text-gray-800">Articles</h1>
+            <h1 class="text-3xl font-bold text-gray-800">{{ __('site.articles') }}</h1>
 
             <a href="{{ route('articles.create') }}"
                class="inline-flex items-center px-5 py-2.5 rounded-xl bg-indigo-600 text-white font-medium hover:bg-indigo-700 transition">
-                + New Article
+                + {{ __('site.new articles') }}
             </a>
         </div>
 
@@ -22,7 +22,7 @@
 
                     <!-- Image -->
                     <div class="h-48 overflow-hidden">
-                        <img src="{{ $article->image ? asset('storage/'.$article->image) : asset('article.webp') }}"
+                        <img src="{{ $article->image ? asset('storage/' . $article->image) : asset('article.webp') }}"
                              class="w-full h-full object-cover hover:scale-105 transition duration-300">
                     </div>
 
@@ -49,13 +49,13 @@
 
                             <a href="{{ route('articles.show', $article) }}"
                                class="text-indigo-600 font-medium hover:underline">
-                                Read More →
+                                {{ __('site.Read More') }}
                             </a>
 
                             <div class="flex space-x-2">
                                 <a href="{{ route('articles.edit', $article) }}"
                                    class="px-3 py-1.5 rounded-lg text-sm bg-yellow-100 text-yellow-700 hover:bg-yellow-200">
-                                    Edit
+                                    {{ __('site.Edit') }}
                                 </a>
 
                                 <form action="{{ route('articles.destroy', $article) }}" method="POST"
@@ -64,7 +64,7 @@
                                     @method('DELETE')
                                     <button
                                         class="px-3 py-1.5 rounded-lg text-sm bg-red-100 text-red-600 hover:bg-red-200">
-                                        Delete
+                                        {{ __('site.Delete') }}
                                     </button>
                                 </form>
                             </div>
@@ -75,7 +75,7 @@
                 </div>
             @empty
                 <div class="col-span-full text-center py-20">
-                    <p class="text-gray-500 text-lg">No articles found.</p>
+                    <p class="text-gray-500 text-lg">{{ __('site.no articals') }}</p>
                 </div>
             @endforelse
 

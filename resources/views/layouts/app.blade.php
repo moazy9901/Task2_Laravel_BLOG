@@ -1,5 +1,6 @@
 <!doctype html>
-<html lang="en">
+<html lang="{{ app()->getLocale() }}" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
+
 
 <head>
     <meta charset="utf-8" />
@@ -12,13 +13,16 @@
 </head>
 
 <body>
-    @include('layouts.navbar')
-    @yield("content")
+    <div class="overflow-hidden">
+
+        @include('layouts.navbar')
+        @yield("content")
     <!-- Toastify JS -->
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
+</div>
     @if(session('success'))
-        <script>
+    <script>
             document.addEventListener("DOMContentLoaded", function () {
                 Toastify({
                     text: @json(session('success')),

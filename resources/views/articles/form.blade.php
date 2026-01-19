@@ -3,7 +3,7 @@
 <div class="max-w-3xl mx-auto bg-white shadow-xl rounded-2xl p-10 mt-10">
 
     <h2 class="text-3xl font-bold text-gray-800 mb-8">
-        {{ $article ? 'Edit Article' : 'Create New Article' }}
+        {{ $article ? __('site.edit_article') : __('site.new articles') }}
     </h2>
 
     <form action="{{ $article ? route('articles.update', $article) : route('articles.store') }}" method="POST"
@@ -16,7 +16,7 @@
 
         <!-- Category -->
         <div>
-            <label class="block text-sm font-semibold text-gray-700 mb-2">Category *</label>
+            <label class="block text-sm font-semibold text-gray-700 mb-2">{{ __('site.categories') }} *</label>
             <select name="category_id"
                 class="w-full px-4 py-3 rounded-xl border border-gray-300 shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition">
                 <option value="">Select Category</option>
@@ -31,7 +31,7 @@
 
         <!-- Title -->
         <div>
-            <label class="block text-sm font-semibold text-gray-700 mb-2">Title *</label>
+            <label class="block text-sm font-semibold text-gray-700 mb-2">{{ __('site.Title') }} *</label>
             <input type="text" name="title" value="{{ old('title', $article->title ?? '') }}"
                 class="w-full px-4 py-3 rounded-xl border border-gray-300 shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition">
             @error('title') <p class="text-red-600 text-sm mt-1">{{ $message }}</p> @enderror
@@ -39,16 +39,16 @@
 
         <!-- Slug -->
         <div>
-            <label class="block text-sm font-semibold text-gray-700 mb-2">Slug *</label>
+            <label class="block text-sm font-semibold text-gray-700 mb-2">{{ __('site.Slug') }} *</label>
             <input type="text" name="slug" id="slug" value="{{ old('slug', $article->slug ?? '') }}"
                 class="w-full px-4 py-3 rounded-xl border border-gray-300 shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition">
-            <p id="slug-message" class="text-sm mt-1 text-gray-500">Only letters, numbers, hyphens or underscores.</p>
+            <p id="slug-message" class="text-sm mt-1 text-gray-500">{{ __('site.format') }}</p>
             @error('slug') <p class="text-red-600 text-sm mt-1">{{ $message }}</p> @enderror
         </div>
 
         <!-- Image -->
         <div>
-            <label class="block text-sm font-semibold text-gray-700 mb-2">Image</label>
+            <label class="block text-sm font-semibold text-gray-700 mb-2">{{ __('site.Image') }}</label>
             <input type="file" name="image" accept="image/*" class="w-full text-sm text-gray-500 file:mr-4 file:py-3 file:px-5
                           file:rounded-xl file:border-0 file:text-sm file:font-semibold
                           file:bg-indigo-100 file:text-indigo-700 hover:file:bg-indigo-200 transition">
@@ -60,7 +60,7 @@
 
         <!-- Content -->
         <div>
-            <label class="block text-sm font-semibold text-gray-700 mb-2">Content *</label>
+            <label class="block text-sm font-semibold text-gray-700 mb-2">{{ __('site.content') }} *</label>
             <textarea name="content" rows="8"
                 class="w-full px-4 py-4 rounded-xl border border-gray-300 shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition">{{ old('content', $article->content ?? '') }}</textarea>
             @error('content') <p class="text-red-600 text-sm mt-1">{{ $message }}</p> @enderror
@@ -68,7 +68,7 @@
 
         <!-- Meta Description -->
         <div>
-            <label class="block text-sm font-semibold text-gray-700 mb-2">Meta Description</label>
+            <label class="block text-sm font-semibold text-gray-700 mb-2">{{ __('site.Meta Description') }}</label>
             <textarea name="meta_description" rows="4"
                 class="w-full px-4 py-3 rounded-xl border border-gray-300 shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition">{{ old('meta_description', $article->description ?? '') }}</textarea>
             @error('meta_description') <p class="text-red-600 text-sm mt-1">{{ $message }}</p> @enderror
@@ -76,7 +76,7 @@
 
         <!-- Keywords -->
         <div>
-            <label class="block text-sm font-semibold text-gray-700 mb-2">Meta Keywords</label>
+            <label class="block text-sm font-semibold text-gray-700 mb-2">{{ __('site.Meta Keywords') }}</label>
             <input type="text" name="meta_keywords" value="{{ old('meta_keywords', $article->keywords ?? '') }}"
                 class="w-full px-4 py-3 rounded-xl border border-gray-300 shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition">
             @error('meta_keywords') <p class="text-red-600 text-sm mt-1">{{ $message }}</p> @enderror
@@ -86,7 +86,7 @@
         <div class="pt-6">
             <button type="submit"
                 class="w-full px-6 py-4 rounded-2xl bg-indigo-600 text-white font-bold text-lg hover:bg-indigo-700 transition">
-                {{ $article ? 'Update Article' : 'Create Article' }}
+                {{ $article ?  __('site.edit_article') : __('site.create_article') }}
             </button>
         </div>
 

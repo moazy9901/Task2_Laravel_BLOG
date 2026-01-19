@@ -6,7 +6,7 @@
 
         <!-- Breadcrumb -->
         <div class="mb-6 text-sm text-gray-500">
-            <a href="{{ route('articles.index') }}" class="hover:text-indigo-600">Articles</a>
+            <a href="{{ route('articles.index') }}" class="hover:text-indigo-600">{{ __('site.articles') }}</a>
             <span class="mx-2">/</span>
             <span class="text-gray-700 font-medium">{{ $article->slug }}</span>
         </div>
@@ -47,21 +47,21 @@
         <!-- SEO Info -->
         <div class="bg-gray-50 border border-gray-200 rounded-2xl p-6 mb-10">
 
-            <h3 class="text-lg font-semibold text-gray-800 mb-4">SEO Information</h3>
+            <h3 class="text-lg font-semibold text-gray-800 mb-4">{{ __('site.SEO') }}</h3>
 
             <div class="space-y-3">
                 <div>
-                    <p class="text-sm text-gray-500">Meta Title</p>
+                    <p class="text-sm text-gray-500">{{ __('site.Meta Title') }}</p>
                     <p class="text-gray-800">{{ $article->meta_title ?? $article->title }}</p>
                 </div>
 
                 <div>
-                    <p class="text-sm text-gray-500">Meta Description</p>
+                    <p class="text-sm text-gray-500">{{ __('site.Meta Description') }}</p>
                     <p class="text-gray-800">{{ $article->description }}</p>
                 </div>
 
                 <div>
-                    <p class="text-sm text-gray-500">Keywords</p>
+                    <p class="text-sm text-gray-500">{{ __('site.Meta Keywords') }}</p>
                     <p class="text-gray-800">{{ $article->keywords }}</p>
                 </div>
             </div>
@@ -72,13 +72,13 @@
 
             <a href="{{ route('articles.index') }}"
                 class="inline-flex items-center px-5 py-2.5 rounded-xl bg-gray-100 text-gray-700 hover:bg-gray-200 transition">
-                ← Back to Articles
+                 {{ __('site.Back_to') }} {{ __('site.articles') }}
             </a>
 
             <div class="flex space-x-3">
                 <a href="{{ route('articles.edit', $article) }}"
                     class="px-5 py-2.5 rounded-xl bg-yellow-500 text-white hover:bg-yellow-600 transition">
-                    Edit
+                    {{ __('site.Edit') }}
                 </a>
 
                 <form action="{{ route('articles.destroy', $article) }}" method="POST"
@@ -86,7 +86,7 @@
                     @csrf
                     @method('DELETE')
                     <button class="px-5 py-2.5 rounded-xl bg-red-600 text-white hover:bg-red-700 transition">
-                        Delete
+                        {{ __('site.Delete') }}
                     </button>
                 </form>
             </div>

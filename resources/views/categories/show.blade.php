@@ -6,7 +6,7 @@
 
         <!-- Breadcrumb -->
         <div class="mb-6 text-sm text-gray-500">
-            <a href="{{ route('categories.index') }}" class="hover:text-indigo-600">categories</a>
+            <a href="{{ route('categories.index') }}" class="hover:text-indigo-600">{{ __('site.categories') }}</a>
             <span class="mx-2">/</span>
             <span class="text-gray-700 font-medium">{{ $category->slug }}</span>
         </div>
@@ -43,21 +43,21 @@
         <!-- SEO Info -->
         <div class="bg-gray-50 border border-gray-200 rounded-2xl p-6 mb-10">
 
-            <h3 class="text-lg font-semibold text-gray-800 mb-4">SEO Information</h3>
+            <h3 class="text-lg font-semibold text-gray-800 mb-4">{{ __('site.SEO') }}</h3>
 
             <div class="space-y-3">
                 <div>
-                    <p class="text-sm text-gray-500">Meta Title</p>
+                    <p class="text-sm text-gray-500">{{ __('site.Meta Title') }}</p>
                     <p class="text-gray-800">{{ $category->meta_title ?? $category->name }}</p>
                 </div>
 
                 <div>
-                    <p class="text-sm text-gray-500">Meta Description</p>
+                    <p class="text-sm text-gray-500">{{ __('site.Meta Description') }}</p>
                     <p class="text-gray-800">{{ $category->meta_description }}</p>
                 </div>
 
                 <div>
-                    <p class="text-sm text-gray-500">Keywords</p>
+                    <p class="text-sm text-gray-500">{{ __('site.Meta Keywords') }}</p>
                     <p class="text-gray-800">{{ $category->meta_keywords }}</p>
                 </div>
             </div>
@@ -68,13 +68,13 @@
 
             <a href="{{ route('categories.index') }}"
                 class="inline-flex items-center px-5 py-2.5 rounded-xl bg-gray-100 text-gray-700 hover:bg-gray-200 transition">
-                ← Back to categories
+                 {{ __('site.Back_to') }} {{ __('site.categories') }}
             </a>
 
             <div class="flex space-x-3">
                 <a href="{{ route('categories.edit', $category) }}"
                     class="px-5 py-2.5 rounded-xl bg-yellow-500 text-white hover:bg-yellow-600 transition">
-                    Edit
+                    {{ __('site.Edit') }}
                 </a>
 
                 <form action="{{ route('categories.destroy', $category) }}" method="POST"
@@ -82,7 +82,7 @@
                     @csrf
                     @method('DELETE')
                     <button class="px-5 py-2.5 rounded-xl bg-red-600 text-white hover:bg-red-700 transition">
-                        Delete
+                        {{ __('site.Delete') }}
                     </button>
                 </form>
             </div>
@@ -91,7 +91,7 @@
     <!-- Related Articles -->
     <div class="my-10">
         <h2 class="text-3xl font-bold text-gray-800 mb-8">
-            Articles in "{{ $category->name }}"
+            {{ __('site.articles') }} : "{{ $category->name }}"
         </h2>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -115,7 +115,7 @@
                         </p>
 
                         <a href="{{ route('articles.show', $article) }}" class="text-indigo-600 font-medium hover:underline">
-                            Read Article →
+                            {{ __('site.Read More') }}
                         </a>
 
                     </div>
