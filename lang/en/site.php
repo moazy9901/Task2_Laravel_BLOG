@@ -30,7 +30,7 @@ return [
     'available' => 'Slug is available.',
     'no articals' => 'No articles found.',
     'no categories' => 'No categories found.',
-    'SEO Information' => 'SEO Information',
+    'SEO' => 'SEO Information',
     'Back_to' => '← Back to',
     'submit' => 'Submit',
     'update'=>'update',

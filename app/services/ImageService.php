@@ -10,13 +10,21 @@ class ImageService
 {
 
     //Upload an image to the storage
-     
-    public static function upload(UploadedFile $file, $folder = 'categories')
-    {
-        $filename = Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME))
-            . '-' . time() . '.' . $file->getClientOriginalExtension();
 
-        return $file->storeAs($folder, $filename, 'public');
+    public static function upload(UploadedFile $file, string $path): string
+    {
+        if (!ImageService::isRealImage($file)) {
+            throw new \Exception('The uploaded file is not a real image.');
+        }
+
+        $filename = Str::uuid() . '.' . $file->getClientOriginalExtension();
+
+        return $file->storeAs($path, $filename, 'public');
+    }
+
+    private static function isRealImage(UploadedFile $file): bool
+    {
+        return @getimagesize($file->getPathname()) !== false;
     }
 
     //Delete image from storage

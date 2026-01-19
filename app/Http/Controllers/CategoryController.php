@@ -35,7 +35,7 @@ class CategoryController extends Controller
     {
         $data = $request->validated();
         if ($request->hasFile('image')) {
-            $data['image'] = ImageService::upload($request->file('image'));
+            $data['image'] = ImageService::upload($request->file('image')  , 'categories');
         }
         Category::create($data);
         return redirect()->route('categories.index')
@@ -67,7 +67,7 @@ class CategoryController extends Controller
         $data = $request->validated();
         if ($request->hasFile('image')) {
             ImageService::delete($category->image);
-            $data['image'] = ImageService::upload($request->file('image'));
+            $data['image'] = ImageService::upload($request->file('image') , 'categories');
         }
         $category->update($data);
         return redirect()->route('categories.show' , compact('category'))
