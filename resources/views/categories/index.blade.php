@@ -1,71 +1,85 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container mx-auto px-4 py-6">
-        <div class="flex justify-between items-center mb-6">
-            <h1 class="text-3xl font-bold text-gray-800">Categories</h1>
+
+    <div class="max-w-7xl mx-auto px-4 py-8">
+
+        <!-- Page Header -->
+        <div class="flex items-center justify-between mb-8">
+            <h1 class="text-3xl font-bold text-gray-800">categories</h1>
+
             <a href="{{ route('categories.create') }}"
-                class="bg-blue-600 text-white px-4 py-2 rounded shadow hover:bg-blue-700 transition">Add Category</a>
+                class="inline-flex items-center px-5 py-2.5 rounded-xl bg-indigo-600 text-white font-medium hover:bg-indigo-700 transition">
+                + New catogory
+            </a>
         </div>
 
-        @if(session('success'))
-            <script>
-                Toastify({
-                    text: "{{ session('success') }}",
-                    duration: 4000,
-                    close: true,
-                    gravity: "top",
-                    position: "right",
-                    style: { background: "linear-gradient(to right, #00b09b, #96c93d)" },
-                }).showToast();
-            </script>
-        @endif
+        <!-- categories Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
 
-        <div class="overflow-x-auto">
-            <table class="min-w-full border border-gray-200 rounded-lg shadow-sm">
-                <thead class="bg-gray-100">
-                    <tr>
-                        <th class=" text-center py-3 text-center text-sm font-semibold text-gray-700">Name</th>
-                        <th class="px-6 py-3 text-center text-sm font-semibold text-gray-700">Slug</th>
-                        <th class="px-6 py-3 text-center text-sm font-semibold text-gray-700">Meta Title</th>
-                        <th class="px-6 py-3 text-center text-sm font-semibold text-gray-700">Image</th>
-                        <th class="px-6 py-3 text-center text-sm font-semibold text-gray-700">Actions</th>
-                    </tr>
-                </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
-                    @foreach($categories as $category)
-                        <tr class="hover:bg-gray-50">
-                            <td class="px-6 text-center py-4 text-gray-800">{{ $category->name }}</td>
-                            <td class="px-6 text-center py-4 text-gray-600">{{ $category->slug }}</td>
-                            <td class="px-6 text-center py-4 text-gray-600">{{ $category->meta_title }}</td>
-                            <td class="px-6 text-center py-4">
-                                @if($category->image)
-                                    <img src="{{ asset('storage/' . $category->image) }}"
-                                        class="w-16 h-16 mx-auto object-cover rounded shadow-sm">
-                                @endif
-                            </td>
-                            <td class="px-6 text-center py-4 space-x-2">
-                                <a href="{{ route('categories.show', $category->id) }}"
-                                    class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 transition">show</a>
-                                <form action="{{ route('categories.destroy', $category->id) }}" method="POST" class="inline">
-                                <a href="{{ route('categories.edit', $category->id) }}"
-                                    class="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600 transition">Edit</a>
-                                <form action="{{ route('categories.destroy', $category->id) }}" method="POST" class="inline">
+            @forelse($categories as $catogory)
+                <div class="bg-white rounded-2xl shadow-md hover:shadow-xl transition overflow-hidden">
+
+                    <!-- Image -->
+                    <div class="h-48 overflow-hidden">
+                        <img src="{{ $catogory->image ? asset('storage/' . $catogory->image) : asset('istockphoto.jpg') }}"
+                            class="w-full h-full object-cover hover:scale-105 transition duration-300">
+                    </div>
+
+                    <!-- Content -->
+                    <div class="p-6">
+
+                        <!-- Title -->
+                        <h2 class="text-xl font-bold text-gray-800 mb-2 line-clamp-2">
+                            {{ $catogory->name }}
+                        </h2>
+
+                        <!-- Description -->
+                        <p class="text-gray-600 text-sm mb-4 line-clamp-3">
+                            {{ $catogory->meta_description }}
+                        </p>
+
+                        <!-- Actions -->
+                        <div class="flex items-center justify-between mt-4">
+
+                            <a href="{{ route('categories.show', $catogory) }}"
+                                class="text-indigo-600 font-medium hover:underline">
+                                Read More →
+                            </a>
+
+                            <div class="flex space-x-2">
+                                <a href="{{ route('categories.edit', $catogory) }}"
+                                    class="px-3 py-1.5 rounded-lg text-sm bg-yellow-100 text-yellow-700 hover:bg-yellow-200">
+                                    Edit
+                                </a>
+
+                                <form action="{{ route('categories.destroy', $catogory) }}" method="POST"
+                                    onsubmit="return confirm('Delete this catogory?')">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit"
-                                        class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition"
-                                        onclick="return confirm('Are you sure?')">Delete</button>
+                                    <button class="px-3 py-1.5 rounded-lg text-sm bg-red-100 text-red-600 hover:bg-red-200">
+                                        Delete
+                                    </button>
                                 </form>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            @empty
+                <div class="col-span-full text-center py-20">
+                    <p class="text-gray-500 text-lg">No categories found.</p>
+                </div>
+            @endforelse
+
         </div>
 
-        <div class="mt-6">
+        <!-- Pagination -->
+        <div class="mt-10">
             {{ $categories->links() }}
         </div>
+
     </div>
+
 @endsection

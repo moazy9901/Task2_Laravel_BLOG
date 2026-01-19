@@ -12,9 +12,8 @@
 </head>
 
 <body>
-
+    @include('layouts.navbar')
     @yield("content")
-
     <!-- Toastify JS -->
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
@@ -41,6 +40,15 @@
             });
         </script>
     @endif
+
+    <script>
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+    </script>
 
 </body>
 

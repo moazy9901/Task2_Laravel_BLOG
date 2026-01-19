@@ -1,117 +1,133 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="max-w-6xl mx-auto px-6 py-10">
 
-        <!-- Header -->
-        <div class="flex justify-between items-center mb-8">
-            <div>
-                <h1 class="text-3xl font-bold text-gray-800">{{ $category->name }}</h1>
-                <p class="text-gray-500 mt-1">Category Details & SEO Information</p>
+    <div class="max-w-5xl mx-auto px-4 py-10">
+
+        <!-- Breadcrumb -->
+        <div class="mb-6 text-sm text-gray-500">
+            <a href="{{ route('categories.index') }}" class="hover:text-indigo-600">categories</a>
+            <span class="mx-2">/</span>
+            <span class="text-gray-700 font-medium">{{ $category->slug }}</span>
+        </div>
+
+        <!-- Hero Image -->
+        <div class="rounded-3xl overflow-hidden shadow-lg mb-10">
+            <img src="{{ $category->image ? asset('storage/' . $category->image) : asset('istockphoto.jpg') }}"
+                class="w-full h-[420px] object-cover">
+        </div>
+
+        <!-- category Header -->
+        <div class="mb-10">
+
+            <!-- Category -->
+            <span
+                class="inline-block mb-4 px-4 py-1.5 rounded-full text-sm font-semibold bg-indigo-100 text-indigo-700">
+                {{ $category->name }}
+            </span>
+
+            <!-- Title -->
+            <h1 class="text-4xl font-extrabold text-gray-900 leading-tight mb-4">
+                {{ $category->meta_title }}
+            </h1>
+
+            <!-- Meta -->
+            <div class="flex items-center text-gray-500 text-sm space-x-4">
+                <span>{{ $category->created_at->format('d M Y') }}</span>
+                <span>•</span>
+                <span>{{ $category->name }}</span>
             </div>
 
-            <div class="flex gap-3">
-                <a href="{{ route('categories.edit', $category->id) }}"
-                    class="bg-yellow-500 text-white px-5 py-2 rounded-lg shadow hover:bg-yellow-600 transition">
+        </div>
+
+        <!-- SEO Info -->
+        <div class="bg-gray-50 border border-gray-200 rounded-2xl p-6 mb-10">
+
+            <h3 class="text-lg font-semibold text-gray-800 mb-4">SEO Information</h3>
+
+            <div class="space-y-3">
+                <div>
+                    <p class="text-sm text-gray-500">Meta Title</p>
+                    <p class="text-gray-800">{{ $category->meta_title ?? $category->name }}</p>
+                </div>
+
+                <div>
+                    <p class="text-sm text-gray-500">Meta Description</p>
+                    <p class="text-gray-800">{{ $category->meta_description }}</p>
+                </div>
+
+                <div>
+                    <p class="text-sm text-gray-500">Keywords</p>
+                    <p class="text-gray-800">{{ $category->meta_keywords }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="flex items-center justify-between">
+
+            <a href="{{ route('categories.index') }}"
+                class="inline-flex items-center px-5 py-2.5 rounded-xl bg-gray-100 text-gray-700 hover:bg-gray-200 transition">
+                ← Back to categories
+            </a>
+
+            <div class="flex space-x-3">
+                <a href="{{ route('categories.edit', $category) }}"
+                    class="px-5 py-2.5 rounded-xl bg-yellow-500 text-white hover:bg-yellow-600 transition">
                     Edit
                 </a>
 
-                <form action="{{ route('categories.destroy', $category->id) }}" method="POST">
+                <form action="{{ route('categories.destroy', $category) }}" method="POST"
+                    onsubmit="return confirm('Delete this category?')">
                     @csrf
                     @method('DELETE')
-                    <button onclick="return confirm('Are you sure?')"
-                        class="bg-red-500 text-white px-5 py-2 rounded-lg shadow hover:bg-red-600 transition">
+                    <button class="px-5 py-2.5 rounded-xl bg-red-600 text-white hover:bg-red-700 transition">
                         Delete
                     </button>
                 </form>
-
-                <a href="{{ route('categories.index') }}"
-                    class="bg-gray-600 text-white px-5 py-2 rounded-lg shadow hover:bg-gray-700 transition">
-                    Back
-                </a>
-            </div>
-        </div>
-
-        <!-- Main Card -->
-        <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-
-            <!-- Top Section -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 p-8">
-
-                <!-- Left: Image -->
-                <div>
-                    <h3 class="text-lg font-semibold text-gray-700 mb-3">Category Image</h3>
-
-                    @if($category->image)
-                        <img src="{{ asset('storage/' . $category->image) }}" class="w-full h-72 object-cover rounded-lg shadow">
-                    @else
-                        <div class="w-full h-72 bg-gray-100 flex items-center justify-center rounded-lg">
-                            <span class="text-gray-400">No Image Uploaded</span>
-                        </div>
-                    @endif
-                </div>
-
-                <!-- Right: Basic Info -->
-                 <div>
-                    <h3 class="text-lg font-semibold text-gray-700 mb-4">Basic Information</h3>
-
-                    <div class="space-y-4">
-                        <div>
-                            <p class="text-sm text-gray-500">Name</p>
-                            <p class="text-lg font-medium text-gray-800">{{ $category->name }}</p>
-                        </div>
-
-                        <div>
-                            <p class="text-sm text-gray-500">Slug (URL)</p>
-                            <p class="text-lg font-medium text-blue-600">{{ $category->slug }}</p>
-                        </div>
-
-                        <div>
-                            <p class="text-sm text-gray-500">Created At</p>
-                            <p class="text-gray-700">{{ $category->created_at->format('d M Y') }}</p>
-                        </div>
-
-                        <div>
-                            <p class="text-sm text-gray-500">Last Update</p>
-                            <p class="text-gray-700">{{ $category->updated_at->format('d M Y') }}</p>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- SEO Section -->
-            <div class="border-t bg-gray-50 p-8">
-
-                <h3 class="text-xl font-semibold text-gray-800 mb-6">SEO Meta Data</h3>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-                    <div class="bg-white p-5 rounded-lg shadow-sm">
-                        <p class="text-sm text-gray-500 mb-1">Meta Title</p>
-                        <p class="text-gray-800 font-medium">
-                            {{ $category->meta_title ?? '— Not set —' }}
-                        </p>
-                    </div>
-
-                    <div class="bg-white p-5 rounded-lg shadow-sm">
-                        <p class="text-sm text-gray-500 mb-1">Meta Keywords</p>
-                        <p class="text-gray-800 font-medium">
-                            {{ $category->meta_keywords ?? '— Not set —' }}
-                        </p>
-                    </div>
-
-                    <div class="bg-white p-5 rounded-lg shadow-sm md:col-span-2">
-                        <p class="text-sm text-gray-500 mb-1">Meta Description</p>
-                        <p class="text-gray-800 leading-relaxed">
-                            {{ $category->meta_description ?? '— Not set —' }}
-                        </p>
-                    </div>
-
-                </div>
             </div>
 
         </div>
+    <!-- Related Articles -->
+    <div class="my-10">
+        <h2 class="text-3xl font-bold text-gray-800 mb-8">
+            Articles in "{{ $category->name }}"
+        </h2>
 
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            @forelse($category->articles as $article)
+                <div class="bg-white rounded-2xl shadow hover:shadow-xl transition overflow-hidden">
+
+                    <div class="h-48 overflow-hidden">
+                        <img src="{{ $article->image ? asset('storage/' . $article->image) : asset('article.webp') }}"
+                            class="w-full h-full object-cover hover:scale-105 transition">
+                    </div>
+
+                    <div class="p-6">
+
+                        <h3 class="text-xl font-bold text-gray-800 mb-2 line-clamp-2">
+                            {{ $article->title }}
+                        </h3>
+
+                        <p class="text-gray-600 text-sm mb-4 line-clamp-3">
+                            {{ $article->content }}
+                        </p>
+
+                        <a href="{{ route('articles.show', $article) }}" class="text-indigo-600 font-medium hover:underline">
+                            Read Article →
+                        </a>
+
+                    </div>
+                </div>
+            @empty
+                <div class="col-span-full text-center py-20">
+                    <p class="text-gray-500 text-lg">No articles found in this category.</p>
+                </div>
+            @endforelse
+
+        </div>
     </div>
+    </div>
+
 @endsection

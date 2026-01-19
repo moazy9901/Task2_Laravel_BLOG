@@ -19,12 +19,7 @@ class Category extends Model
         'meta_keywords'
     ];
 
-    protected static function booted()
-    {
-        static::creating(function ($category) {
-            if (!$category->slug) {
-                $category->slug = Str::slug($category->name, '-');
-            }
-        });
-    }
+   public function articles(){
+    return $this->hasMany(Article::class);
+   }
 }

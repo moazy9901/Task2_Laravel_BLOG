@@ -11,7 +11,7 @@ class ImageService
 
     //Upload an image to the storage
      
-    public static function upload(UploadedFile $file, string $folder = 'categories'): string
+    public static function upload(UploadedFile $file, $folder = 'categories')
     {
         $filename = Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME))
             . '-' . time() . '.' . $file->getClientOriginalExtension();
@@ -20,7 +20,7 @@ class ImageService
     }
 
     //Delete image from storage
-    public static function delete(?string $path): void
+    public static function delete($path)
     {
         if ($path && Storage::disk('public')->exists($path)) {
             Storage::disk('public')->delete($path);

@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\categoryRequest;
 use App\Models\Category;
-use Illuminate\Http\Request;
 use App\Services\ImageService;
+use App\Services\SlugValidationService;
+use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
@@ -46,6 +47,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
+        $category->load('articles');
         return view('categories.show', compact('category'));
     }
 
@@ -68,7 +70,7 @@ class CategoryController extends Controller
             $data['image'] = ImageService::upload($request->file('image'));
         }
         $category->update($data);
-        return redirect()->route('categories.index')
+        return redirect()->route('categories.show' , compact('category'))
             ->with('success', 'Category updated successfully!');
     }
 
@@ -79,5 +81,10 @@ class CategoryController extends Controller
     {
         $category->delete();
         return redirect()->route('categories.index')->with('success', 'Category deleted successfully!');
+    }
+
+    public function validateSlug(Request $request)
+    {
+        return SlugValidationService::validate($request, Category::class);
     }
 }
